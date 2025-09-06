@@ -1777,6 +1777,9 @@ export const generateNewStudyPlan = (
         }
       }
 
+      // Fix micro-overlaps on this day before final validation
+      fixMicroOverlapsOnDay(plan, settings);
+
       // Validate that no sessions overlap on this day
       if (!validateSessionTimes(plan.plannedTasks, commitmentsForDay, plan.date)) {
         console.error(`Session overlap detected on ${plan.date} - some sessions may be incorrectly scheduled`);
