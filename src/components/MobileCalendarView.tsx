@@ -468,6 +468,12 @@ const MobileCalendarView: React.FC<MobileCalendarViewProps> = ({
       }
     }
 
+    // Enforce strict non-overlap on the affected day(s)
+    const tIdx = updatedPlans.findIndex(p => p.date === targetDate);
+    if (tIdx >= 0 && settings) fixMicroOverlapsOnDay(updatedPlans[tIdx], settings);
+    const oIdx = updatedPlans.findIndex(p => p.date === originalDate);
+    if (oIdx >= 0 && settings) fixMicroOverlapsOnDay(updatedPlans[oIdx], settings);
+
     onUpdateStudyPlans(updatedPlans);
 
     const snappedTime = moment(availableSlot.start).format('HH:mm');
