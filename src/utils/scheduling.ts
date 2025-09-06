@@ -3286,8 +3286,10 @@ export const redistributeAfterTaskDeletion = (
     
     // Recombine sessions after each pass
     combineSessionsOnSameDay(studyPlans);
+    // And fix any micro-overlaps introduced
+    studyPlans.forEach(plan => fixMicroOverlapsOnDay(plan, settings));
   }
-  
+
   // Assign time slots
   for (const plan of studyPlans) {
     plan.plannedTasks.sort((a, b) => {
