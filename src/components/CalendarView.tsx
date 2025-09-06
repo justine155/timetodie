@@ -740,8 +740,19 @@ const CalendarView: React.FC<CalendarViewProps> = ({
 
     const bufferTimeMs = (settings.bufferTimeBetweenSessions || 0) * 60 * 1000;
 
-    // Gather busy slots on target date (only other commitments; allow overlap with study sessions)
+    // Gather busy slots on target date (commitments AND study sessions)
     const busy: Array<{ start: Date; end: Date }> = [];
+
+    // Study sessions (block commitments from overlapping sessions)
+    studyPlans.forEach(plan => {
+      if (plan.date !== targetDate) return;
+      plan.plannedTasks.forEach(s => {
+        if (s.status === 'skipped' || !s.startTime || !s.endTime) return;
+        const sStart = moment(`${targetDate} ${s.startTime}`).toDate();
+        const sEnd = moment(`${targetDate} ${s.endTime}`).toDate();
+        busy.push({ start: sStart, end: sEnd });
+      });
+    });
 
     // Commitments
     fixedCommitments.forEach(c => {
