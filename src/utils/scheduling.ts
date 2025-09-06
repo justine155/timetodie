@@ -803,7 +803,7 @@ function fixMicroOverlapsOnDay(plan: StudyPlan, settings: UserSettings) {
     return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
   };
 
-  const MICRO_OVERLAP_TOLERANCE = 2; // minutes
+  const MICRO_OVERLAP_TOLERANCE = 3; // minutes
   const buffer = settings.bufferTimeBetweenSessions || 0;
   const startOfDay = (settings.studyWindowStartHour || 6) * 60;
   const endOfDay = (settings.studyWindowEndHour || 23) * 60;
