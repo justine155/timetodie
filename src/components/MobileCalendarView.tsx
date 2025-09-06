@@ -5,6 +5,7 @@ import { checkSessionStatus, formatTime, validateTimeSlot, doesCommitmentApplyTo
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { TouchBackend } from 'react-dnd-touch-backend';
 import moment from 'moment';
+import { fixMicroOverlapsOnDay } from '../utils/scheduling';
 
 interface MobileCalendarViewProps {
   studyPlans: StudyPlan[];
