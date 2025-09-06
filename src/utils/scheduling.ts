@@ -3220,7 +3220,10 @@ export const redistributeAfterTaskDeletion = (
   
   // Combine sessions
   combineSessionsOnSameDay(studyPlans);
-  
+
+  // Fix micro-overlaps across all days after combination
+  studyPlans.forEach(plan => fixMicroOverlapsOnDay(plan, settings));
+
   // MULTIPLE GLOBAL REDISTRIBUTION PASSES for maximum filling
   let redistributionPasses = 0;
   const maxRedistributionPasses = 3;
