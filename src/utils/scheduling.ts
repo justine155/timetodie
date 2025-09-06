@@ -1070,6 +1070,8 @@ export const reshuffleStudyPlan = (
     }
   }
 
+  // Final pass to eliminate any micro-overlaps
+  reshuffledPlans.forEach(plan => fixMicroOverlapsOnDay(plan, settings));
   return { plans: reshuffledPlans, suggestions };
 };
 
