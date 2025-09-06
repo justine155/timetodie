@@ -574,12 +574,12 @@ export function findNextAvailableTimeSlot(
   });
   
   activeCommitments.forEach(c => {
-    // Handle all-day events - removed blocking logic for work categories
+    // Treat all-day commitments as blocking the entire day
     if (c.isAllDay) {
-      // All-day events no longer block study session scheduling
+      busyIntervals.push({ start: 0, end: 24 * 60 - 1 });
       return;
     }
-    
+
     // Determine the actual start and end times for this commitment on this date
     let actualStartTime = c.startTime;
     let actualEndTime = c.endTime;
