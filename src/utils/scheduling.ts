@@ -737,13 +737,9 @@ function validateSessionTimes(
       // Check if the commitment or its modification is an all-day event
       const isAllDay = modified?.isAllDay !== undefined ? modified.isAllDay : commitment.isAllDay;
 
-      // For all-day events, block the entire day
+      // For all-day events, do not block the day in validation
       if (isAllDay) {
-        busyIntervals.push({
-          start: 0,
-          end: 24 * 60 - 1,
-          source: `commitment-${commitment.title}-allday`
-        });
+        // Skip adding a busy interval for all-day commitments
       } else {
         // For time-specific events, use the specified times
         const startTime = modified?.startTime || commitment.startTime;
