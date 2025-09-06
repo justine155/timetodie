@@ -1042,6 +1042,12 @@ const CalendarView: React.FC<CalendarViewProps> = ({
       }
     }
 
+    // Fix micro-overlaps on affected day(s)
+    const targetIdx = updatedPlans.findIndex(p => p.date === targetDate);
+    if (targetIdx >= 0 && settings) fixMicroOverlapsOnDay(updatedPlans[targetIdx], settings);
+    const origIdx = updatedPlans.findIndex(p => p.date === originalPlanDate);
+    if (origIdx >= 0 && settings) fixMicroOverlapsOnDay(updatedPlans[origIdx], settings);
+
     onUpdateStudyPlans(updatedPlans);
 
     // Show the placement feedback message
