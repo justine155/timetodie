@@ -2155,7 +2155,9 @@ const CalendarView: React.FC<CalendarViewProps> = ({
                         extraBusy.push({ start: slot.start, end: slot.end });
                       }
 
-                      updatedPlans[planIndex] = { ...plan, plannedTasks: tasksCopy };
+                      const planAfter = { ...plan, plannedTasks: tasksCopy };
+                      fixMicroOverlapsOnDay(planAfter, settings!);
+                      updatedPlans[planIndex] = planAfter;
                       onUpdateStudyPlans(updatedPlans);
                       if (overlaps.length) {
                         setDragFeedback(`Moved ${overlaps.length} session(s) to accommodate commitment`);
@@ -2234,7 +2236,9 @@ const CalendarView: React.FC<CalendarViewProps> = ({
                         extraBusy.push({ start: slot.start, end: slot.end });
                       }
 
-                      updatedPlans[planIndex] = { ...plan, plannedTasks: tasksCopy };
+                      const planAfter = { ...plan, plannedTasks: tasksCopy };
+                      fixMicroOverlapsOnDay(planAfter, settings!);
+                      updatedPlans[planIndex] = planAfter;
                       onUpdateStudyPlans(updatedPlans);
                       if (overlaps.length) {
                         setDragFeedback(`Moved ${overlaps.length} session(s) to accommodate commitment`);
