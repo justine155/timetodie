@@ -1643,7 +1643,10 @@ export const generateNewStudyPlan = (
     // Combine sessions of the same task on the same day
     combineSessionsOnSameDay(studyPlans);
 
-    // Validate scheduling for conflicts after all redistribution and combining
+    // Fix micro-overlaps between adjacent sessions
+    studyPlans.forEach(plan => fixMicroOverlapsOnDay(plan, settings));
+
+    // Validate scheduling for conflicts after all redistribution, combining and fixes
     studyPlans.forEach(plan => {
       if (!validateSessionTimes(plan.plannedTasks, fixedCommitments, plan.date)) {
         console.warn(`Scheduling conflicts detected on ${plan.date} after redistribution. Some sessions may overlap.`);
