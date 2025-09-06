@@ -574,9 +574,8 @@ export function findNextAvailableTimeSlot(
   });
   
   activeCommitments.forEach(c => {
-    // Treat all-day commitments as blocking the entire day
+    // All-day commitments should not block study session scheduling
     if (c.isAllDay) {
-      busyIntervals.push({ start: 0, end: 24 * 60 - 1 });
       return;
     }
 
